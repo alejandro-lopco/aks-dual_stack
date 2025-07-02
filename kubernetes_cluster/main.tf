@@ -1,10 +1,12 @@
 resource "azurerm_kubernetes_cluster" "this" {
-  name                = "aks-${var.project}-${var.location}-${var.environment}"
+  name                = "aks-${var.project}-${var.environment}"
   location            = var.location
-  resource_group_name = "rg-${var.project}-${var.location}-${var.environment}"
+  resource_group_name = "rg-${var.project}-${var.environment}"
+
+  dns_prefix = "aksAnyway"
 
   default_node_pool {
-    name = "node_pool-${azurerm_kubernetes_cluster.this[0].name}"
+    name = "nodepool"
 
     node_count = var.node_count
     vm_size = var.vm_size
@@ -22,9 +24,4 @@ resource "azurerm_kubernetes_cluster" "this" {
   }
 
   tags = merge(var.tags, { "service" = "aks", "networking " = "dual-stack" })
-
-  depends_on = [
-    azurerm_resource_group.this,
-    azurerm_virtual_network.this
-  ]
 }

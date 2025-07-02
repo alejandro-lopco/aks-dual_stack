@@ -1,9 +1,9 @@
 output "vnet_id" {
-  value = try(azurerm_virtual_network.this[0].id, null)
+  value = azurerm_virtual_network.this.id
 }
 
 output "name" {
-  value = try(azurerm_virtual_network.this[0].name, null)
+  value = azurerm_virtual_network.this.name
 }
 
 output "location" {
@@ -11,5 +11,5 @@ output "location" {
 }
 
 output "subvNet_id" {
-  value = try(azurerm_virtual_network.this[0].subnet[0].id, null)
+  value = azurerm_subnet.this.id
 }

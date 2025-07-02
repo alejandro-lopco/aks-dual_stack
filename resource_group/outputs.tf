@@ -1,9 +1,9 @@
 output "id" {
-  value = try(azurerm_resource_group.this[0].id, null)
+  value = azurerm_resource_group.this.id
 }
 
 output "name" {
-  value = try(azurerm_resource_group.this[0].name, null)
+  value = azurerm_resource_group.this.name
 }
 
 output "location" {

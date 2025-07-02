@@ -11,10 +11,6 @@ variable "ip_versions" {
   type = list(string)
 
   default = [ "IPv4" ]
-  validation {
-    condition     = contains([["ipv4"], ["ipv6"], ["ipv4","ipv6"]], lower(var.ip_versions))
-    error_message = "IP Version no reconocida"
-  }
 }
 variable "node_count" {
   type = number

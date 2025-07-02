@@ -11,3 +11,5 @@
 terraform.rc
 # Directorio de configuración
 module_store/
+# Ficheros de terraform plan 
+*.tfout

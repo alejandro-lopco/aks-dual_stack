@@ -1,19 +1,18 @@
 resource "azurerm_virtual_network" "this" {
-  name      = "vNet-${var.project}-${var.location}-${var.environment}"
+  name      = "vNet-${var.project}-${var.environment}"
   location  = var.location
 
   address_space = var.address_space
 
-  subnet = {
-    name              = "subvNet-${var.project}-${var.location}-${var.environment}"
-    address_prefixes  = var.address_prefixes
-  }
-
-  resource_group_name = "rg-${var.project}-${var.location}-${var.environment}"
+  resource_group_name = "rg-${var.project}-${var.environment}"
 
   tags = merge(var.tags, { "service" = "vNet" })
+}
+resource "azurerm_subnet" "this" {
+  name = "subvNet-${var.project}-${var.environment}"
 
-  depends_on = [ 
-    azurerm_resource_group
-  ]
+  resource_group_name = azurerm_virtual_network.this.resource_group_name
+
+  virtual_network_name = azurerm_virtual_network.this.name
+  address_prefixes  = var.address_prefixes
 }
