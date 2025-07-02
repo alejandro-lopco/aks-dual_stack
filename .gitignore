@@ -1,0 +1,13 @@
+# Ficheros de estado de Terraform
+*.tfstate
+*.tfstate.backup
+*.tfplan
+.terraform.tfstate.lock.info
+# Directorio .terraform 
+.terraform/
+# Terraform CLI config
+.terraformrc
+.terraform.lock.hcl
+terraform.rc
+# Directorio de configuración
+module_store/
