@@ -8,8 +8,7 @@ variable "tags" {
   type = map(string)
 }
 variable "project" {
-  type = string
-  default = "AnyWayAKS"
+  type = string  
 }
 variable "environment" {
   type = string

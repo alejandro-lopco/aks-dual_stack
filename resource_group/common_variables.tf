@@ -9,7 +9,6 @@ variable "tags" {
 }
 variable "project" {
   type = string
-  default = "AnyWayAKS"
 }
 variable "environment" {
   type = string

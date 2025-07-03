@@ -29,9 +29,11 @@ resource "azurerm_kubernetes_cluster" "this" {
 module "delete_lock" {
   source = "../management_delete_lock"
 
+  prefix          = "aks"
   subscription_id = var.subscription_id
-  location        = var.location
   environment     = var.environment
+  location        = var.location
+  project         = var.project
 
   scope_id = azurerm_kubernetes_cluster.this.id
 
