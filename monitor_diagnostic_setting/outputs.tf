@@ -10,6 +10,3 @@ output "monitor_diagnostic_setting_workspace" {
 output "monitor_diagnostic_setting_enabled_logs" {
   value = azurerm_monitor_diagnostic_setting.this.enabled_log
 }
-output "monitor_diagnostic_setting_enabled_logs" {
-  value = azurerm_monitor_diagnostic_setting.this.enabled_metric
-}
