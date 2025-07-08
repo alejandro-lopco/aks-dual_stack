@@ -25,34 +25,3 @@ resource "azurerm_kubernetes_cluster" "this" {
 
   tags = merge(var.tags, { "service" = "aks", "networking " = "dual-stack" })
 }
-
-module "delete_lock" {
-  source = "../management_delete_lock"
-
-  prefix          = "aks"
-  subscription_id = var.subscription_id
-  environment     = var.environment
-  location        = var.location
-  project         = var.project
-
-  scope_id = azurerm_kubernetes_cluster.this.id
-
-  tags = {}
-}
-
-module "monitor_diagnostic_setting" {
-  source = "../monitor_diagnostic_setting"
-
-  prefix          = "aks"
-  subscription_id = var.subscription_id
-  environment     = var.environment
-  location        = var.location
-  project         = var.project
-
-  log_destination = var.log_destination.storage_account_id
-  logs = var.logs
-  metrics = var.metrics
-  target_resource_id = azurerm_kubernetes_cluster.this.id
-
-  tags = {}
-}
