@@ -41,6 +41,7 @@ variable "public_ip" {
   type = bool
   description = "Otorgar una IP pública al cluster"
 }
+# -- Monitoring --
 variable "log_destination" {
   type = object({
     log_analytics_workspace_id = optional(string, null)
@@ -49,15 +50,21 @@ variable "log_destination" {
   description = "Destino a donde se mandarán las logs, debe tener mínimo uno configurado"
 
   validation {
-    condition = (var.log_destination.log_analytics_workspace_id != null || var.log_destination.storage_account_id != null)
+    condition = (var.log_destination.log_analytics_workspace_id != null || var.log_destination.storage_account_id != null || var.log_destination == null)
     error_message = "No hay ningún destino configurado"
   }
+
+  default = null
 }
 variable "logs" {
   type = list(string)
   description = "Categoría de logs que se van a monitorizar"
+
+  default = null
 }
 variable "metrics" {
   type = list(string)
   description = "Métricas que se recogeran dentro de cada categoría"
+
+  default = null
 }

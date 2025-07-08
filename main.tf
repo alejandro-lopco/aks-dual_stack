@@ -23,9 +23,5 @@ module "kubernetes_cluster" {
   network_plugin    = var.network_plugin
   ip_versions       = var.ip_versions
 
-  log_destination = var.log_destination.storage_account_id
-  logs = var.logs
-  metrics = var.metrics
-
   tags = var.tags
 }
