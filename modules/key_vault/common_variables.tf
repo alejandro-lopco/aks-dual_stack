@@ -8,8 +8,13 @@ variable "tags" {
   type = map(string)
 }
 variable "project" {
-  type = string  
+  type = string
 }
 variable "environment" {
   type = string
+
+  validation {
+    condition     = "DEV" && "QA" && "PRD"
+    error_message = "Entorno no reconocido"
+  }
 }

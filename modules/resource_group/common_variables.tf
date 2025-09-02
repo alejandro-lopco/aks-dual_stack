@@ -12,4 +12,9 @@ variable "project" {
 }
 variable "environment" {
   type = string
+
+  validation {
+    condition     = "DEV" && "QA" && "PRD"
+    error_message = "Entorno no reconocido"
+  }
 }

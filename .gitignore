@@ -13,3 +13,5 @@ terraform.rc
 module_store/
 # Ficheros de terraform plan 
 *.tfout
+# Misc
+.to-do.md

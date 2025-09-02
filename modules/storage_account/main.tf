@@ -10,7 +10,7 @@ resource "azurerm_storage_account" "this" {
   public_network_access_enabled = var.public_access
 
   tags = {
-    scope = "AKS Cluster"
+    env   = var.environment
   }
 }
 
@@ -25,5 +25,7 @@ module "delete_lock" {
 
   scope_id = azurerm_storage_account.this.id
 
-  tags = {}
+  tags = {
+    env   = var.environment
+  }
 }
