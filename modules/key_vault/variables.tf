@@ -25,7 +25,7 @@ variable "enabled_for_template_deployment" {
 variable "sku_name" {
   type = string
   validation {
-    condition     = "Standard" && "Premium"
+    condition     = contains(["Standard", "Premium"], var.acr_sku)
     error_message = "SKU no permitido/reconocido"
   }
 

@@ -25,3 +25,17 @@ resource "azurerm_kubernetes_cluster" "this" {
 
   tags = merge(var.tags, { "service" = "aks", "networking " = "dual-stack" })
 }
+
+module "management_delete_lock" {
+  source = "../management_delete_lock"
+
+  project = var.project
+  prefix = var.prefix
+  environment = var.environment
+  scope_id = azurerm_kubernetes_cluster.this.id
+
+  subscription_id = var.subscription_id
+  location = var.location
+
+  tags = merge(var.tags, { service = "delete_lock" })
+}

@@ -1,7 +1,7 @@
 data "azurerm_client_config" "this" {}
 
 resource "azurerm_key_vault" "this" {
-  name                = "aks-${var.project}-${var.environment}"
+  name                = "akv-${var.project}-${var.environment}"
   location            = var.location
   resource_group_name = "rg-${var.project}-${var.environment}"
 
@@ -15,7 +15,7 @@ resource "azurerm_key_vault" "this" {
 
   sku_name = var.sku_name
 
-  tags = merge(var.tags, { "service" = "rg" })
+  tags = merge(var.tags, { service = "kv" })
 }
 
 resource "azurerm_key_vault_access_policy" "this" {
@@ -27,4 +27,18 @@ resource "azurerm_key_vault_access_policy" "this" {
   key_permissions = var.key_permissions
   secret_permissions = var.secret_permissions
   storage_permissions = var.storage_permissions
+}
+
+module "management_delete_lock" {
+  source = "../management_delete_lock"
+
+  project = var.project
+  prefix = var.prefix
+  environment = var.environment
+  scope_id = azurerm_key_vault.this.id
+
+  subscription_id = var.subscription_id
+  location = var.location
+
+  tags = merge(var.tags, { service = "delete_lock" })
 }

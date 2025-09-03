@@ -14,18 +14,16 @@ resource "azurerm_storage_account" "this" {
   }
 }
 
-module "delete_lock" {
+module "management_delete_lock" {
   source = "../management_delete_lock"
 
-  prefix          = "stoAcc"
-  subscription_id = var.subscription_id
-  environment     = var.environment
-  location        = var.location
-  project         = var.project
-
+  project = var.project
+  prefix = var.prefix
+  environment = var.environment
   scope_id = azurerm_storage_account.this.id
 
-  tags = {
-    env   = var.environment
-  }
+  subscription_id = var.subscription_id
+  location = var.location
+
+  tags = merge(var.tags, { service = "delete_lock" })
 }

@@ -17,34 +17,30 @@ resource "azurerm_subnet" "this" {
   address_prefixes  = var.address_prefixes
 }
 
-module "delete_lock" {
+module "management_delete_lock" {
   source = "../management_delete_lock"
 
-  prefix          = "vNet"
-  subscription_id = var.subscription_id
-  environment     = var.environment
-  location        = var.location
-  project         = var.project
-
+  project = var.project
+  prefix = var.prefix
+  environment = var.environment
   scope_id = azurerm_virtual_network.this.id
 
-  tags = {
-    service = "vNet"
-  }
+  subscription_id = var.subscription_id
+  location = var.location
+
+  tags = merge(var.tags, { service = "vNet_delete_lock" })
 }
 
-module "delete_lock" {
+module "management_delete_lock" {
   source = "../management_delete_lock"
 
-  prefix          = "subvNet"
-  subscription_id = var.subscription_id
-  environment     = var.environment
-  location        = var.location
-  project         = var.project
-
+  project = var.project
+  prefix = var.prefix
+  environment = var.environment
   scope_id = azurerm_subnet.this.id
 
-  tags = {
-    service = "vNet"
-  }
+  subscription_id = var.subscription_id
+  location = var.location
+
+  tags = merge(var.tags, { service = "SubVNet_delete_lock" })
 }

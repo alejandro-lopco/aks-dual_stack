@@ -6,9 +6,11 @@ variable "location" {
 }
 variable "tags" {
   type = map(string)
+  default = null
 }
 variable "project" {
-  type = string  
+  type = string
+  default = null
 }
 variable "environment" {
   type = string
@@ -17,4 +19,8 @@ variable "environment" {
     condition     = "DEV" && "QA" && "PRD"
     error_message = "Entorno no reconocido"
   }
+  default = "DEV"
+}
+variable "prefix" {
+  type = string
 }
