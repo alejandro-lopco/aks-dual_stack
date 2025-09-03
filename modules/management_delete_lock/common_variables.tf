@@ -16,11 +16,8 @@ variable "environment" {
   type = string
 
   validation {
-    condition     = "DEV" && "QA" && "PRD"
+    condition     = contains(["DEV", "QA", "PRD"], var.environment)
     error_message = "Entorno no reconocido"
   }
   default = "DEV"
-}
-variable "prefix" {
-  type = string
 }

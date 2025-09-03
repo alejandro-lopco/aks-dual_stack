@@ -1,42 +1,37 @@
-output "id" {
-  value = azurerm_resource_group.this.id
-}
-
-output "name" {
-  value = azurerm_resource_group.this.name
-}
-
 output "location" {
-  value = var.location
+  value = azurerm_key_vault.this.location
 }
-output "Encryption Enabled" {
-  value = var.enabled_for_disk_encryption
+output "sku" {
+  value = azurerm_key_vault.this.sku_name
 }
-output "Purge Protection Enabled" {
-  value = var.purge_protection_enabled
+output "encryptionEnabled" {
+  value = azurerm_key_vault.this.enabled_for_disk_encryption
 }
-output "Soft Delete Retention" {
-  value = var.soft_delete_retention_days
+output "purgeProtectionEnabled" {
+  value = azurerm_key_vault.this.purge_protection_enabled
 }
-output "RBAC Enabled" {
-  value = var.enable_rbac_authorization
+output "softDeleteRetention" {
+  value = azurerm_key_vault.this.soft_delete_retention_days
 }
-output "Deployment Enabled" {
-  value = var.enabled_for_deployment
+output "RBACEnabled" {
+  value = azurerm_key_vault.this.enable_rbac_authorization
 }
-output "Template Deployment Enabled" {
-  value = var.enabled_for_template_deployment
+output "deploymentEnabled" {
+  value = azurerm_key_vault.this.enabled_for_deployment
+}
+output "templateDeploymentEnabled" {
+  value = azurerm_key_vault.this.enabled_for_template_deployment
 }
 # Access policy
-output "Certifacate Perms" {
-  value = var.certificate_permissions
+output "certifacatePerms" {
+  value = azurerm_key_vault_access_policy.this.certificate_permissions
 }
-output "Key Perms" {
-  value = var.key_permissions
+output "keyPerms" {
+  value = azurerm_key_vault_access_policy.this.key_permissions
 }
-output "Secret Perms" {
-  value = var.secret_permissions
+output "secretPerms" {
+  value = azurerm_key_vault_access_policy.this.secret_permissions
 }
-output "Storage Perms" {
-  value = var.storage_permissions
+output "storagePerms" {
+  value = azurerm_key_vault_access_policy.this.storage_permissions
 }

@@ -1,5 +1,5 @@
 resource "azurerm_monitor_diagnostic_setting" "this" {
-  name = "monitor-${var.prefix}-${var.project}-${var.environment}"
+  name = "monitor-${var.prefix}-${var.prefix}-${var.environment}"
 
   target_resource_id = var.target_resource_id
   log_analytics_workspace_id = var.log_destination.log_analytics_workspace_id

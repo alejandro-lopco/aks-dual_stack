@@ -1,7 +1,7 @@
 resource "azurerm_container_registry" "this" {
-  name                = "acr${var.project}${var.environment}"
+  name                = "acr${var.prefix}${var.environment}AlejandroLopco"
   location            = var.location
-  resource_group_name = "rg-${var.project}-${var.environment}"
+  resource_group_name = "rg-${var.prefix}-${var.environment}"
 
   sku = var.acr_sku
 
@@ -16,11 +16,11 @@ resource "azurerm_container_registry" "this" {
   data_endpoint_enabled         = var.data_endpoint_enabled
   network_rule_bypass_option    = var.network_rule_bypass_option
 
-  encryption = var.encryption
-
   identity {
     type = "SystemAssigned"
   }
+
+
 
   tags = merge(var.tags, { service = "acr" })
 }
@@ -28,7 +28,7 @@ resource "azurerm_container_registry" "this" {
 module "management_delete_lock" {
   source = "../management_delete_lock"
 
-  project = var.project
+  
   prefix = var.prefix
   environment = var.environment
   scope_id = azurerm_container_registry.this.id
