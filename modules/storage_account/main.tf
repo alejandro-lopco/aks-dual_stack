@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "this" {
-  name                = "stoAcc-${var.prefix}-${var.environment}"
+  name                = "stoacc${var.prefix}${var.environment}"
   resource_group_name = "rg-${var.prefix}-${var.environment}"
   location            = var.location
 
