@@ -22,16 +22,3 @@ output "deploymentEnabled" {
 output "templateDeploymentEnabled" {
   value = azurerm_key_vault.this.enabled_for_template_deployment
 }
-# Access policy
-output "certifacatePerms" {
-  value = azurerm_key_vault_access_policy.this.certificate_permissions
-}
-output "keyPerms" {
-  value = azurerm_key_vault_access_policy.this.key_permissions
-}
-output "secretPerms" {
-  value = azurerm_key_vault_access_policy.this.secret_permissions
-}
-output "storagePerms" {
-  value = azurerm_key_vault_access_policy.this.storage_permissions
-}

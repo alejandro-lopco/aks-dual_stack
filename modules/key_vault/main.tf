@@ -18,17 +18,6 @@ resource "azurerm_key_vault" "this" {
   tags = merge(var.tags, { service = "kv" })
 }
 
-resource "azurerm_key_vault_access_policy" "this" {
-  key_vault_id = azurerm_key_vault.this.id
-  tenant_id = data.azurerm_client_config.this.tenant_id
-  object_id = data.azurerm_client_config.this.object_id
-
-  certificate_permissions = var.certificate_permissions
-  key_permissions = var.key_permissions
-  secret_permissions = var.secret_permissions
-  storage_permissions = var.storage_permissions
-}
-
 module "management_delete_lock" {
   source = "../management_delete_lock"
 
