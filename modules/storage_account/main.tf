@@ -1,6 +1,6 @@
 resource "azurerm_storage_account" "this" {
-  name                = "stoAcc-${var.project}-${var.environment}"
-  resource_group_name = "rg-${var.project}-${var.environment}"
+  name                = "stoAcc-${var.prefix}-${var.environment}"
+  resource_group_name = "rg-${var.prefix}-${var.environment}"
   location            = var.location
 
   account_tier = var.account_tier
@@ -8,6 +8,8 @@ resource "azurerm_storage_account" "this" {
 
   https_traffic_only_enabled = var.https_traffic
   public_network_access_enabled = var.public_access
+
+
 
   tags = {
     env   = var.environment
@@ -17,7 +19,7 @@ resource "azurerm_storage_account" "this" {
 module "management_delete_lock" {
   source = "../management_delete_lock"
 
-  project = var.project
+  
   prefix = var.prefix
   environment = var.environment
   scope_id = azurerm_storage_account.this.id

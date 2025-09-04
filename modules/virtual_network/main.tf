@@ -1,26 +1,30 @@
 resource "azurerm_virtual_network" "this" {
-  name      = "vNet-${var.project}-${var.environment}"
+  name      = "vNet-${var.prefix}-${var.environment}"
   location  = var.location
 
   address_space = var.address_space
 
-  resource_group_name = "rg-${var.project}-${var.environment}"
+  resource_group_name = "rg-${var.prefix}-${var.environment}"
+
+
 
   tags = merge(var.tags, { service = "vNet" })
 }
 resource "azurerm_subnet" "this" {
-  name = "subvNet-${var.project}-${var.environment}"
+  name = "subvNet-${var.prefix}-${var.environment}"
 
   resource_group_name = azurerm_virtual_network.this.resource_group_name
 
   virtual_network_name = azurerm_virtual_network.this.name
   address_prefixes  = var.address_prefixes
+
+
 }
 
 module "management_delete_lock" {
   source = "../management_delete_lock"
 
-  project = var.project
+  
   prefix = var.prefix
   environment = var.environment
   scope_id = azurerm_virtual_network.this.id
@@ -34,7 +38,7 @@ module "management_delete_lock" {
 module "management_delete_lock" {
   source = "../management_delete_lock"
 
-  project = var.project
+  
   prefix = var.prefix
   environment = var.environment
   scope_id = azurerm_subnet.this.id
