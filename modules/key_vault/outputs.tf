@@ -1,3 +1,6 @@
+output "name" {
+  value = azurerm_key_vault.this.name
+}
 output "location" {
   value = azurerm_key_vault.this.location
 }

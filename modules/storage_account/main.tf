@@ -1,5 +1,5 @@
 resource "azurerm_storage_account" "this" {
-  name                = "stoAcc-${var.prefix}-${var.environment}"
+  name                = "stoacc${var.prefix}${var.environment}"
   resource_group_name = "rg-${var.prefix}-${var.environment}"
   location            = var.location
 
@@ -27,5 +27,5 @@ module "management_delete_lock" {
   subscription_id = var.subscription_id
   location = var.location
 
-  tags = merge(var.tags, { service = "delete_lock" })
+  tags = merge(var.tags, { service = "stoAcc_delete_lock" })
 }

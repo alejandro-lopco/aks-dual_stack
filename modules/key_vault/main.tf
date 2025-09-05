@@ -1,7 +1,7 @@
 data "azurerm_client_config" "this" {}
 
 resource "azurerm_key_vault" "this" {
-  name                = "akv-${var.prefix}-${var.environment}"
+  name                = "akv${var.prefix}${var.environment}alopco"
   location            = var.location
   resource_group_name = "rg-${var.prefix}-${var.environment}"
 

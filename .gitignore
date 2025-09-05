@@ -1,12 +1,14 @@
 # Ficheros de estado de Terraform
 *.tfstate
 *.tfstate.backup
+*.backup
 *.tfplan
 .terraform.tfstate.lock.info
 # Directorio .terraform 
 .terraform/
 *.tfvars
 /main.tf
+/variables.tf
 # Terraform CLI config
 .terraformrc
 .terraform.lock.hcl

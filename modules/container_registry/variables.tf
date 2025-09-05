@@ -6,7 +6,7 @@ variable "acr_sku" {
     error_message = "SKU no reconocido"
   }
 
-  description = "Tipo de SKU utilazado para el ACE"
+  description = "Tipo de SKU utilazado para el ACR"
   default     = "Basic"
 }
 variable "admin_enabled" {
