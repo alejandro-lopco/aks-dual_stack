@@ -1,6 +1,7 @@
 # Ficheros de estado de Terraform
 *.tfstate
 *.tfstate.backup
+*.backup
 *.tfplan
 .terraform.tfstate.lock.info
 # Directorio .terraform 

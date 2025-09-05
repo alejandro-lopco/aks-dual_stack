@@ -27,5 +27,5 @@ module "management_delete_lock" {
   subscription_id = var.subscription_id
   location = var.location
 
-  tags = merge(var.tags, { service = "delete_lock" })
+  tags = merge(var.tags, { service = "stoAcc_delete_lock" })
 }

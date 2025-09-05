@@ -18,3 +18,17 @@ resource "azurerm_service_plan" "this" {
 
   tags = merge(var.tags, { service = "sv" })
 }
+
+module "management_delete_lock" {
+  source = "../management_delete_lock"
+
+  
+  prefix = var.prefix
+  environment = var.environment
+  scope_id = azurerm_service_plan.this.id
+
+  subscription_id = var.subscription_id
+  location = var.location
+
+  tags = merge(var.tags, { service = "sv_delete_lock" })
+}
