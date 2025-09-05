@@ -19,3 +19,6 @@ output "https_enabled" {
 output "public_access" {
   value = azurerm_storage_account.this.public_network_access_enabled
 }
+output "access_key" {
+  value = azurerm_storage_account.this.primary_access_key
+}

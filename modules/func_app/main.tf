@@ -1,3 +1,10 @@
+module "rg" {
+  source = "../resource_group"
+
+  subscription_id = var.subscription_id
+  location        = var.location
+  prefix          = var.prefix  
+}
 module "vNet" {
   source = "../virtual_network"
 
@@ -37,10 +44,6 @@ module "sv" {
   subscription_id = var.subscription_id
   location        = var.location
   prefix          = var.prefix
-}
-
-data "azurerm_resource_group" "this" {
-  name = "rg-${var.prefix}-${var.environment}"
 }
 
 resource "azurerm_windows_function_app" "this" {
