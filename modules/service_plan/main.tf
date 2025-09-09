@@ -1,5 +1,5 @@
 resource "azurerm_service_plan" "this" {
-  name                = "sv-${var.prefix}-${var.environment}"
+  name                = var.sv_name
   location            = var.location
   resource_group_name = "rg-${var.prefix}-${var.environment}"
 
@@ -22,13 +22,15 @@ resource "azurerm_service_plan" "this" {
 module "management_delete_lock" {
   source = "../management_delete_lock"
 
-  
-  prefix = var.prefix
+  mgmtlock_name       = "sv_mgmtlock"
+  resource_group_name = var.resource_group_name
+
+  prefix      = var.prefix
   environment = var.environment
-  scope_id = azurerm_service_plan.this.id
+  scope_id    = azurerm_service_plan.this.id
 
   subscription_id = var.subscription_id
-  location = var.location
+  location        = var.location
 
   tags = merge(var.tags, { service = "sv_delete_lock" })
 }

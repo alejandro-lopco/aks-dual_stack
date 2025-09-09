@@ -1,12 +1,16 @@
 module "rg" {
   source = "../resource_group"
 
-  subscription_id = var.subscription_id
-  location        = var.location
-  prefix          = var.prefix  
+  resource_group_name = var.resource_group_name
+  subscription_id     = var.subscription_id
+  location            = var.location
+  prefix              = var.prefix  
 }
 module "sv" {
   source = "../service_plan"
+
+  sv_name             = var.sv_name
+  resource_group_name = var.resource_group_name
 
   subscription_id = var.subscription_id
   location        = var.location
@@ -15,12 +19,15 @@ module "sv" {
 module "vNet" {
   source = "../virtual_network"
 
+  vnet_name           = var.vnet_name
+  resource_group_name = var.resource_group_name  
+
   subscription_id = var.subscription_id
   location        = var.location
   prefix          = var.prefix
 
-  address_space = ["10.0.0.0/16"]
-  address_prefixes = ["10.0.1.0/24"]
+  address_space     = ["10.0.0.0/16"]
+  address_prefixes  = ["10.0.1.0/24"]
 
   # Delegación para permitir la conexión de la subred
   service_delegations = [ 
@@ -32,7 +39,10 @@ module "vNet" {
   ]
 }
 module "stoAcc" {
-    source = "../storage_account"
+  source = "../storage_account"
+
+  sto_acc_name              = var.sv_name
+  resource_group_name       = var.resource_group_name
 
   subscription_id = var.subscription_id
   location        = var.location
@@ -40,7 +50,7 @@ module "stoAcc" {
 }
 
 resource "azurerm_logic_app_standard" "this" {
-  name                       = "logic-${var.prefix}-${var.environment}-AlejandroLopco"
+  name                       = var.logicapp_name
   location                   = var.location
   resource_group_name        = module.rg.name
   app_service_plan_id        = module.sv.id
@@ -72,4 +82,20 @@ resource "azurerm_logic_app_standard" "this" {
   virtual_network_subnet_id = try(module.vNet.subvNet_id, null)
 
   tags = merge(var.tags, { "service" = "logicApp" })
+}
+
+module "management_delete_lock" {
+  source = "../management_delete_lock"
+
+  mgmtlock_name       = "logicapp_mgmtlock"
+  resource_group_name = var.resource_group_name
+  
+  prefix      = var.prefix
+  environment = var.environment
+  scope_id    = azurerm_logic_app_standard.this.id
+
+  subscription_id = var.subscription_id
+  location        = var.location
+
+  tags = merge(var.tags, { service = "sv_delete_lock" })
 }

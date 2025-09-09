@@ -1,3 +1,26 @@
+variable "funcapp_name" {
+  type = string
+}
+variable "vnet_name" {
+  type    = string
+
+  default = "vNet-Anyway"
+}
+variable "kv_name" {
+  type = string
+
+  default = "kvAnyway3D2025"
+}
+variable "sto_acc_name" {
+  type = string
+
+  default = "stoAccAnyway3D2025"
+}
+variable "sv_name" {
+  type = string
+
+  default = "svAnyway3D2025"
+}
 variable "https_only" {
   type = bool
 
@@ -29,6 +52,7 @@ variable "site_config" {
     app_scale_limit                        = optional(number)
     application_insights_connection_string = optional(string)
     application_insights_key               = optional(string)
+
     application_stack = optional(object({
       dotnet_version              = optional(string)
       use_dotnet_isolated_runtime = optional(bool)
@@ -37,6 +61,7 @@ variable "site_config" {
       powershell_core_version     = optional(string)
       use_custom_runtime          = optional(bool)
     }))
+
     elastic_instance_minimum          = optional(number)
     http2_enabled                     = optional(bool, true)
     health_check_eviction_time_in_min = optional(number)
@@ -48,6 +73,7 @@ variable "site_config" {
     runtime_scale_monitoring_enabled  = optional(bool)
     use_32_bit_worker                 = optional(bool)
     worker_count                      = optional(number)
+    
     cors = optional(object({
       allowed_origins     = optional(set(string))
       support_credentials = optional(bool)

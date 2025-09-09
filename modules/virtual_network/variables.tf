@@ -1,10 +1,13 @@
+variable "vnet_name" {
+  type = string
+}
 variable "address_space" {
-  type = list(string)
+  type        = list(string)
 
   description = "Dirección de red (IPv4 o IPv6) de la red virutal"
 }
 variable "address_prefixes" {
-  type = list(string)
+  type        = list(string)
   
   description = "Dirección de red (IPv4 o IPv6) de la subred virutal"
 }
@@ -16,5 +19,5 @@ variable "service_delegations" {
   }))
 
   description = "Listado de delegaciones que encargar a la subred"
-  default = []
+  default     = []
 }

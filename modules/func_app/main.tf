@@ -1,19 +1,23 @@
 module "rg" {
   source = "../resource_group"
 
-  subscription_id = var.subscription_id
-  location        = var.location
-  prefix          = var.prefix  
+  resource_group_name = var.resource_group_name
+  subscription_id     = var.subscription_id
+  location            = var.location
+  prefix              = var.prefix  
 }
 module "vNet" {
   source = "../virtual_network"
 
-  subscription_id = var.subscription_id
-  location        = var.location
-  prefix          = var.prefix
+  vnet_name           = var.vnet_name
+  resource_group_name = var.resource_group_name
 
-  address_space = ["10.0.0.0/16"]
-  address_prefixes = ["10.0.1.0/24"]
+  subscription_id     = var.subscription_id
+  location            = var.location
+  prefix              = var.prefix
+
+  address_space     = ["10.0.0.0/16"]
+  address_prefixes  = ["10.0.1.0/24"]
 
   # Delegación para permitir la conexión de la subred
   service_delegations = [ 
@@ -27,12 +31,18 @@ module "vNet" {
 module "kv" {
   source = "../key_vault"
 
+  kv_name             = var.kv_name
+  resource_group_name = var.resource_group_name
+
   subscription_id = var.subscription_id
   location        = var.location
   prefix          = var.prefix
 }
 module "stoAcc" {
   source = "../storage_account"
+
+  sto_acc_name        = var.sto_acc_name
+  resource_group_name = var.resource_group_name
 
   subscription_id = var.subscription_id
   location        = var.location
@@ -41,13 +51,16 @@ module "stoAcc" {
 module "sv" {
   source = "../service_plan"
 
+  sv_name             = var.sv_name
+  resource_group_name = var.resource_group_name
+
   subscription_id = var.subscription_id
   location        = var.location
   prefix          = var.prefix
 }
 
 resource "azurerm_windows_function_app" "this" {
-  name                          = "func-${var.prefix}-${var.environment}-AlejandroLopco"
+  name                          = var.funcapp_name
   location                      = var.location
   resource_group_name           = data.azurerm_resource_group.this.name
   service_plan_id               = module.sv.id
@@ -109,6 +122,8 @@ resource "azurerm_windows_function_app" "this" {
 module "management_delete_lock" {
   source = "../management_delete_lock"
 
+  mgmtlock_name       = "funcApp_mgmtlock"
+  resource_group_name = var.resource_group_name
   
   prefix = var.prefix
   environment = var.environment

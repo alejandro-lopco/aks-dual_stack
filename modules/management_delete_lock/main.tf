@@ -1,5 +1,5 @@
 resource "azurerm_management_lock" "this" {
-  name    = "${var.prefix}-delete-lock"
+  name        = var.mgmtlock_name
 
   scope       = var.scope_id
   lock_level  = "CanNotDelete"
