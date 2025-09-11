@@ -3,6 +3,11 @@ variable "sv_name" {
 
   default = "svAnyway3D2025"
 }
+variable "wwapp_name" {
+  type = string
+
+  default = "wwapp_Anyway3D2025"
+}
 variable "site_config" {
   type = object({
       always_on = optional(bool, true)

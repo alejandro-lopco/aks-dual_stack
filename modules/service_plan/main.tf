@@ -1,7 +1,11 @@
+module "resource_naming" {
+  source = "../resource_naming"
+}
+
 resource "azurerm_service_plan" "this" {
   name                = var.sv_name
   location            = var.location
-  resource_group_name = "rg-${var.prefix}-${var.environment}"
+  resource_group_name = var.resource_group_name
 
   os_type             = var.os_type
   sku_name            = var.sku_name
@@ -22,10 +26,10 @@ resource "azurerm_service_plan" "this" {
 module "management_delete_lock" {
   source = "../management_delete_lock"
 
-  mgmtlock_name       = "sv_mgmtlock"
+  mgmtlock_name       = "sv_mgmtlock${module.resource_naming.prefix}"
   resource_group_name = var.resource_group_name
 
-  prefix      = var.prefix
+  prefix      = module.resource_naming.prefix
   environment = var.environment
   scope_id    = azurerm_service_plan.this.id
 

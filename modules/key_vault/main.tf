@@ -1,9 +1,13 @@
 data "azurerm_client_config" "this" {}
 
+module "resource_naming" {
+  source = "../resource_naming"
+}
+
 resource "azurerm_key_vault" "this" {
-  name                = var.kv_name
+  name                = "${var.kv_name}${module.resource_naming.prefix}"
   location            = var.location
-  resource_group_name = "rg-${var.prefix}-${var.environment}"
+  resource_group_name = var.resource_group_name
 
   tenant_id = data.azurerm_client_config.this.tenant_id
 
@@ -23,10 +27,10 @@ resource "azurerm_key_vault" "this" {
 module "management_delete_lock" {
   source = "../management_delete_lock"
 
-  mgmtlock_name       = "kv_mgmtlock"
+  mgmtlock_name       = "kv_mgmtlock${module.resource_naming.prefix}"
   resource_group_name = var.resource_group_name
 
-  prefix      = var.prefix
+  prefix      = module.resource_naming.prefix
   environment = var.environment
   scope_id    = azurerm_key_vault.this.id
 

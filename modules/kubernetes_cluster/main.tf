@@ -1,7 +1,11 @@
+module "resource_naming" {
+  source = "../resource_naming"
+}
+  
   resource "azurerm_kubernetes_cluster" "this" {
-  name                = var.aks_name
+  name                = "${var.aks_name}${module.resource_naming.prefix}"
   location            = var.location
-  resource_group_name = "rg-${var.prefix}-${var.environment}"
+  resource_group_name = var.resource_group_name
 
   dns_prefix = "aksAnyway"
 
@@ -31,10 +35,10 @@
 module "management_delete_lock" {
   source = "../management_delete_lock"
 
-  mgmtlock_name       = "aks_mgmtlock"
+  mgmtlock_name       = "aks_mgmtlock${module.resource_naming.prefix}"
   resource_group_name = var.resource_group_name
   
-  prefix      = var.prefix
+  prefix      = module.resource_naming.prefix
   environment = var.environment
   scope_id    = azurerm_kubernetes_cluster.this.id
 

@@ -1,9 +1,6 @@
 variable "mgmtlock_name" {
   type = string
 }
-variable "prefix" {
-  type = string
-}
 variable "scope_id" {
   type        = string
 

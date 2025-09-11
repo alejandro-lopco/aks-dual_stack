@@ -1,5 +1,16 @@
+module "resource_naming" {
+  source = "../resource_naming"
+}
+module "rg" {
+  source = "../resource_group"
+
+  resource_group_name = var.resource_group_name
+  subscription_id     = var.subscription_id
+  location            = var.location
+}
+
 resource "azurerm_container_registry" "this" {
-  name                = var.acr_name
+  name                = "${var.acr_name}${module.resource_naming.prefix}"
   location            = var.location
   resource_group_name = var.resource_group_name
 
@@ -28,10 +39,9 @@ resource "azurerm_container_registry" "this" {
 module "management_delete_lock" {
   source = "../management_delete_lock"
 
-  mgmtlock_name       = "ACR_mgmtlock"
+  mgmtlock_name       = "ACR_mgmtlock${module.resource_naming.prefix}"
   resource_group_name = var.resource_group_name
 
-  prefix              = var.prefix
   environment         = var.environment
   scope_id            = azurerm_container_registry.this.id
 

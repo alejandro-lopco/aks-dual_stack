@@ -1,6 +1,10 @@
+module "resource_naming" {
+  source = "../resource_naming"
+}
+
 resource "azurerm_storage_account" "this" {
   name                = var.sto_acc_name
-  resource_group_name = "rg-${var.prefix}-${var.environment}"
+  resource_group_name = var.resource_group_name
   location            = var.location
 
   account_tier              = var.account_tier
@@ -11,18 +15,15 @@ resource "azurerm_storage_account" "this" {
 
 
 
-  tags = {
-    env   = var.environment
-  }
+  tags = merge(var.tags, { service = "stoAcc" })
 }
 
 module "management_delete_lock" {
   source = "../management_delete_lock"
 
-  mgmtlock_name       = "stoacc_mgmtlock"
+  mgmtlock_name       = "stoacc_mgmtlock${module.resource_naming.prefix}"
   resource_group_name = var.resource_group_name
   
-  prefix      = var.prefix
   environment = var.environment
   scope_id    = azurerm_storage_account.this.id
 

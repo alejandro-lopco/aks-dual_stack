@@ -1,25 +1,27 @@
+module "resource_naming" {
+  source = "../resource_naming"
+}
+
 module "rg" {
   source = "../resource_group"
 
   resource_group_name = var.resource_group_name
   subscription_id     = var.subscription_id
   location            = var.location
-  prefix              = var.prefix
 }
 
 module "sv" {
   source = "../service_plan"
 
-  sv_name             = var.sv_name
+  sv_name             = "${var.sv_name}${module.resource_naming.prefix}"
   resource_group_name = var.resource_group_name
 
   subscription_id = var.subscription_id
   location        = var.location
-  prefix          = var.prefix
 }
 
 resource "azurerm_windows_web_app" "this" {
-  name                          = "wwapp-${var.prefix}-${var.environment}-AlejandroLopco"
+  name                          = "${var.wwapp_name}-${module.resource_naming.prefix}"
   location                      = var.location
   resource_group_name           = module.rg.name
   service_plan_id               = module.sv.id
@@ -219,10 +221,9 @@ resource "azurerm_windows_web_app" "this" {
 module "management_delete_lock" {
   source = "../management_delete_lock"
 
-  mgmtlock_name       = "webapp_mgmtlock"
+  mgmtlock_name       = "webapp_mgmtlock${module.resource_naming.prefix}"
   resource_group_name = var.resource_group_name  
 
-  prefix      = var.prefix
   environment = var.environment
   scope_id    = azurerm_windows_web_app.this.id
 

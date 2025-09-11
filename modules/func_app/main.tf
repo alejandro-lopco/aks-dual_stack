@@ -4,17 +4,19 @@ module "rg" {
   resource_group_name = var.resource_group_name
   subscription_id     = var.subscription_id
   location            = var.location
-  prefix              = var.prefix  
 }
+module "resource_naming" {
+  source = "../resource_naming"
+}
+
 module "vNet" {
   source = "../virtual_network"
 
-  vnet_name           = var.vnet_name
+  vnet_name           = "${var.vnet_name}${module.resource_naming.prefix}"
   resource_group_name = var.resource_group_name
 
   subscription_id     = var.subscription_id
   location            = var.location
-  prefix              = var.prefix
 
   address_space     = ["10.0.0.0/16"]
   address_prefixes  = ["10.0.1.0/24"]
@@ -31,36 +33,33 @@ module "vNet" {
 module "kv" {
   source = "../key_vault"
 
-  kv_name             = var.kv_name
+  kv_name             = "${var.kv_name}${module.resource_naming.prefix}"
   resource_group_name = var.resource_group_name
 
   subscription_id = var.subscription_id
   location        = var.location
-  prefix          = var.prefix
 }
 module "stoAcc" {
   source = "../storage_account"
 
-  sto_acc_name        = var.sto_acc_name
+  sto_acc_name        = "${var.sto_acc_name}${module.resource_naming.prefix}"
   resource_group_name = var.resource_group_name
 
   subscription_id = var.subscription_id
   location        = var.location
-  prefix          = var.prefix
 }
 module "sv" {
   source = "../service_plan"
 
-  sv_name             = var.sv_name
+  sv_name             = "${var.sv_name}${module.resource_naming.prefix}"
   resource_group_name = var.resource_group_name
 
   subscription_id = var.subscription_id
   location        = var.location
-  prefix          = var.prefix
 }
 
 resource "azurerm_windows_function_app" "this" {
-  name                          = var.funcapp_name
+  name                          = "${var.funcapp_name}${module.resource_naming.prefix}"
   location                      = var.location
   resource_group_name           = data.azurerm_resource_group.this.name
   service_plan_id               = module.sv.id
@@ -122,15 +121,14 @@ resource "azurerm_windows_function_app" "this" {
 module "management_delete_lock" {
   source = "../management_delete_lock"
 
-  mgmtlock_name       = "funcApp_mgmtlock"
+  mgmtlock_name       = "funcApp_mgmtlock${module.resource_naming.prefix}"
   resource_group_name = var.resource_group_name
   
-  prefix = var.prefix
   environment = var.environment
-  scope_id = azurerm_windows_function_app.this.id
+  scope_id    = azurerm_windows_function_app.this.id
 
   subscription_id = var.subscription_id
-  location = var.location
+  location        = var.location
 
   tags = merge(var.tags, { service = "funcApp_delete_lock" })
 }

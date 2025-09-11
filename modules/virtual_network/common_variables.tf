@@ -21,6 +21,3 @@ variable "environment" {
   }
   default = "dev"
 }
-variable "prefix" {
-  type = string
-}
