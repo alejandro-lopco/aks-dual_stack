@@ -30,7 +30,6 @@ module "management_delete_lock" {
   mgmtlock_name       = "kv_mgmtlock${module.resource_naming.prefix}"
   resource_group_name = var.resource_group_name
 
-  prefix      = module.resource_naming.prefix
   environment = var.environment
   scope_id    = azurerm_key_vault.this.id
 

@@ -14,7 +14,7 @@ variable "kv_name" {
 variable "sto_acc_name" {
   type = string
 
-  default = "stoAccAnyway3D2025"
+  default = "stoaccanyway3d2025"
 }
 variable "sv_name" {
   type = string

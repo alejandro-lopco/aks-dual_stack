@@ -29,7 +29,6 @@ module "management_delete_lock" {
   mgmtlock_name       = "sv_mgmtlock${module.resource_naming.prefix}"
   resource_group_name = var.resource_group_name
 
-  prefix      = module.resource_naming.prefix
   environment = var.environment
   scope_id    = azurerm_service_plan.this.id
 
