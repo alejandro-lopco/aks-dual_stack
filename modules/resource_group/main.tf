@@ -1,6 +1,6 @@
 resource "azurerm_resource_group" "this" {
-  name      = "rg-${var.prefix}-${var.environment}"
+  name      = var.resource_group_name
   location  = var.location
 
-  tags = merge(var.tags, { "service" = "rg" })
+  tags      = merge(var.tags, { "service" = "rg" })
 }

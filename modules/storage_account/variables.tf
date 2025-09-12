@@ -1,3 +1,6 @@
+variable "sto_acc_name" {
+  type = string
+}
 variable "account_tier" {
   type = string
 
@@ -7,7 +10,7 @@ variable "account_tier" {
   }
 
   description = "Defina la Tier de la storage account"
-  default = "Standard"
+  default     = "Standard"
 }
 variable "account_replication_type" {
   type = string
@@ -18,17 +21,17 @@ variable "account_replication_type" {
   }
 
   description = "Defina el tipo de replicación de la storage account"
-  default = "LRS"
+  default     = "LRS"
 }
 variable "https_traffic" {
-  type = bool
+  type        = bool
 
   description = "Permitir únicamente el tráfico por HTTPS"
-  default = true
+  default     = true
 }
 variable "public_access" {
-  type = bool
+  type        = bool
 
   description = "Permitir el acceso desde redes públicas"
-  default = false
+  default     = false
 }

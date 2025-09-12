@@ -1,3 +1,6 @@
+variable "sv_name" {
+  type = string
+}
 variable "os_type" {
   type = string
 
@@ -7,7 +10,7 @@ variable "os_type" {
   }
 
   description = "Sistema operativo del service plan"
-  default = "Linux"
+  default     = "Linux"
 }
 variable "sku_name" {
   type = string
@@ -27,42 +30,42 @@ variable "sku_name" {
   }
 
   description = "Tipo de SKU del service plan"
-  default = "B1"
+  default     = "B1"
 }
 variable "app_service_environment_id" {
-  type = string
+  type        = string
 
   description = "ID de entorno en el que funcionará el service plan, requiere un Isolated SKU"
-  default = null
+  default     = null
 }
 variable "worker_count" {
-  type = number
+  type        = number
 
   description = "Número de instancias que se crearán, funciona en conjunto con zone_balancing_enabled"
-  default = 1
+  default     = 1
 }
 variable "per_site_scaling_enabled" {
-  type = bool
+  type        = bool
 
   description = "Habilitar el escalado por sitio físico"
-  default = false
+  default     = false
 }
 variable "zone_balancing_enabled" {
-  type = bool
+  type        = bool
 
   description = "Habilitar el balanceo de carga por zonas de disponibilad, requiere un Premium, Isolated o Workflow SKUs"
-  default = false
+  default     = false
 }
 #Premium SKU
 variable "premium_plan_auto_scale_enabled" {
-  type = bool
+  type        = bool
 
   description = "Habilitar el plan de autoescalado premium" 
-  default = false
+  default     = false
 }
 variable "maximum_elastic_worker_count" {
-  type = number
+  type        = number
 
   description = "Número máximo de instancias que crear, requiere un Premium SKU"
-  default = 1
+  default     = 1
 }

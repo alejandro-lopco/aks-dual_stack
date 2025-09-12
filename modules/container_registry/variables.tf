@@ -1,3 +1,6 @@
+variable "acr_name" {
+  type = string
+}
 variable "acr_sku" {
   type = string
 
@@ -58,7 +61,7 @@ variable "network_rule_bypass_option" {
   type = string
 
   validation {
-    condition = contains(["None", "AzureServices"], var.network_rule_bypass_option)
+    condition     = contains(["None", "AzureServices"], var.network_rule_bypass_option)
     error_message = "Bypass no reconocido"
   }
 

@@ -1,3 +1,6 @@
+variable "resource_group_name" {
+  type = string
+}
 variable "subscription_id" {
   type = string
 }
@@ -17,7 +20,4 @@ variable "environment" {
     error_message = "Entorno no reconocido"
   }
   default = "dev"
-}
-variable "prefix" {
-  type = string
 }
