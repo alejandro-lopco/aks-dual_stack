@@ -17,18 +17,3 @@ resource "azurerm_storage_account" "this" {
 
   tags = merge(var.tags, { service = "stoAcc" })
 }
-
-module "management_delete_lock" {
-  source = "../management_delete_lock"
-
-  mgmtlock_name       = "stoacc_mgmtlock${module.resource_naming.prefix}"
-  resource_group_name = var.resource_group_name
-  
-  environment = var.environment
-  scope_id    = azurerm_storage_account.this.id
-
-  subscription_id = var.subscription_id
-  location        = var.location
-
-  tags = merge(var.tags, { service = "stoAcc_delete_lock" })
-}

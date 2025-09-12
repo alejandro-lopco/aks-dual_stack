@@ -35,18 +35,3 @@ resource "azurerm_subnet" "this" {
     }
   }
 }
-
-module "management_delete_lock" {
-  source = "../management_delete_lock"
-
-  mgmtlock_name       = "vnet_mgmtlock${module.resource_naming.prefix}"
-  resource_group_name = var.resource_group_name  
-
-  environment = var.environment
-  scope_id    = azurerm_virtual_network.this.id
-
-  subscription_id = var.subscription_id
-  location        = var.location
-
-  tags = merge(var.tags, { service = "delete_lock" })
-}

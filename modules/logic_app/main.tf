@@ -85,18 +85,3 @@ resource "azurerm_logic_app_standard" "this" {
 
   tags = merge(var.tags, { "service" = "logicApp" })
 }
-
-module "management_delete_lock" {
-  source = "../management_delete_lock"
-
-  mgmtlock_name       = "logicapp_mgmtlock${module.resource_naming.prefix}"
-  resource_group_name = var.resource_group_name
-  
-  environment = var.environment
-  scope_id    = azurerm_logic_app_standard.this.id
-
-  subscription_id = var.subscription_id
-  location        = var.location
-
-  tags = merge(var.tags, { service = "sv_delete_lock" })
-}

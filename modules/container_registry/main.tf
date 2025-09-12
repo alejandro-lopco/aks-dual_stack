@@ -35,18 +35,3 @@ resource "azurerm_container_registry" "this" {
 
   tags = merge(var.tags, { service = "acr" })
 }
-
-module "management_delete_lock" {
-  source = "../management_delete_lock"
-
-  mgmtlock_name       = "ACR_mgmtlock${module.resource_naming.prefix}"
-  resource_group_name = var.resource_group_name
-
-  environment         = var.environment
-  scope_id            = azurerm_container_registry.this.id
-
-  subscription_id = var.subscription_id
-  location        = var.location
-
-  tags = merge(var.tags, { service = "acr_delete_lock" })
-}

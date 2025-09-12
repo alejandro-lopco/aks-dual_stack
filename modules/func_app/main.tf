@@ -117,18 +117,3 @@ resource "azurerm_windows_function_app" "this" {
 
   tags = merge(var.tags, { "service" = "wFuncApp" })
 }
-
-module "management_delete_lock" {
-  source = "../management_delete_lock"
-
-  mgmtlock_name       = "funcApp_mgmtlock${module.resource_naming.prefix}"
-  resource_group_name = var.resource_group_name
-  
-  environment = var.environment
-  scope_id    = azurerm_windows_function_app.this.id
-
-  subscription_id = var.subscription_id
-  location        = var.location
-
-  tags = merge(var.tags, { service = "funcApp_delete_lock" })
-}

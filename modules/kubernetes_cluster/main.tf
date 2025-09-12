@@ -31,19 +31,3 @@ module "resource_naming" {
 
   tags = merge(var.tags, { "service" = "aks", "networking " = "dual-stack" })
 }
-
-module "management_delete_lock" {
-  source = "../management_delete_lock"
-
-  mgmtlock_name       = "aks_mgmtlock${module.resource_naming.prefix}"
-  resource_group_name = var.resource_group_name
-  
-  prefix      = module.resource_naming.prefix
-  environment = var.environment
-  scope_id    = azurerm_kubernetes_cluster.this.id
-
-  subscription_id = var.subscription_id
-  location        = var.location
-
-  tags = merge(var.tags, { service = "delete_lock" })
-}

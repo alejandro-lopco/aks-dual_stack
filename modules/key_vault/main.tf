@@ -23,18 +23,3 @@ resource "azurerm_key_vault" "this" {
 
   tags = merge(var.tags, { service = "kv" })
 }
-
-module "management_delete_lock" {
-  source = "../management_delete_lock"
-
-  mgmtlock_name       = "kv_mgmtlock${module.resource_naming.prefix}"
-  resource_group_name = var.resource_group_name
-
-  environment = var.environment
-  scope_id    = azurerm_key_vault.this.id
-
-  subscription_id = var.subscription_id
-  location        = var.location
-
-  tags = merge(var.tags, { service = "delete_lock" })
-}
