@@ -1,9 +1,6 @@
 output "id" {
-  value = "placeholder"
+  value = azurerm_mssql_database.this.id
 }
 output "name" {
-  value = "placeholder"
-}
-output "location" {
-  value = "placeholder"
+  value = azurerm_mssql_database.this.name
 }

@@ -4,12 +4,12 @@ variable "vnet_name" {
 variable "address_space" {
   type        = list(string)
 
-  description = "Dirección de red (IPv4 o IPv6) de la red virutal"
+  description = "Espacio IPV4 para la red del dev center"
 }
 variable "address_prefixes" {
   type        = list(string)
   
-  description = "Dirección de red (IPv4 o IPv6) de la subred virutal"
+  description = "Espacio IPV4 para la subred del dev center"
 }
 variable "service_delegations" {
   type = list(object({
