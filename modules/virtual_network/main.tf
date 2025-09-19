@@ -10,8 +10,6 @@ resource "azurerm_virtual_network" "this" {
 
   resource_group_name = var.resource_group_name
 
-
-
   tags = merge(var.tags, { service = "vNet" })
 }
 resource "azurerm_subnet" "this" {
