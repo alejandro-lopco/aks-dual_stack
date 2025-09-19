@@ -10,5 +10,5 @@ resource "azurerm_arc_kubernetes_cluster" "this" {
     type = "SystemAssigned"
   }
 
-  tags = merge(var.tags, { service = "aks", type = "azure arc" })
+  tags = merge(var.tags, { service = "aks", type = "Azure Arc" })
 }
