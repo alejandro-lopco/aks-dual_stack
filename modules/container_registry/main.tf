@@ -31,7 +31,5 @@ resource "azurerm_container_registry" "this" {
     type = "SystemAssigned"
   }
 
-
-
   tags = merge(var.tags, { service = "acr" })
 }

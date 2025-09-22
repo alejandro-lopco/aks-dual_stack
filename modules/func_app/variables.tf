@@ -6,6 +6,18 @@ variable "vnet_name" {
 
   default = "vNet-Anyway"
 }
+variable "address_space" {
+  type = list(string)
+
+  default     = [ "10.0.0.0/16" ]
+  description = "Rango CIDR para la red"
+}
+variable "address_prefixes" {
+  type = list(string)
+
+  default     = [ "10.0.0.1/24" ]
+  description = "Rango CIDR para la subred"
+}
 variable "kv_name" {
   type = string
 

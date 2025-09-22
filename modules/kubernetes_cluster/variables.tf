@@ -11,6 +11,12 @@ variable "network_plugin" {
 
   description = "AKS network plugin"
 }
+variable "node_pool_name" {
+  type = string
+
+  description = "Nombre de la agrupación de nodos"
+  default = "default-node-pool"
+}
 variable "ip_versions" {
   type    = list(string)
 

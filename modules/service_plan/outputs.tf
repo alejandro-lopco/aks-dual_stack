@@ -7,3 +7,6 @@ output "rg" {
 output "id" {
   value = azurerm_service_plan.this.id
 }
+output "sku" {
+  value = azurerm_service_plan.this.sku_name
+}

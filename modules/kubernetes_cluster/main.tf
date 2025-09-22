@@ -10,7 +10,7 @@ module "resource_naming" {
   dns_prefix = "aksAnyway"
 
   default_node_pool {
-    name = "nodepool"
+    name = var.node_pool_name
 
     node_count  = var.node_count
     vm_size     = var.vm_size
@@ -26,8 +26,6 @@ module "resource_naming" {
   identity {
     type = "SystemAssigned"
   }
-
-
 
   tags = merge(var.tags, { "service" = "aks", "networking " = "dual-stack" })
 }

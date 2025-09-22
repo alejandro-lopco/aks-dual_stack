@@ -17,8 +17,8 @@ resource "azurerm_service_plan" "this" {
   zone_balancing_enabled    = var.zone_balancing_enabled
 
   #Premium SKU
-  premium_plan_auto_scale_enabled   = var.premium_plan_auto_scale_enabled
-  maximum_elastic_worker_count      = var.maximum_elastic_worker_count
+  premium_plan_auto_scale_enabled   = try(var.premium_plan_auto_scale_enabled, null)
+  maximum_elastic_worker_count      = try(var.maximum_elastic_worker_count, null)
 
   tags = merge(var.tags, { service = "sv" })
 }

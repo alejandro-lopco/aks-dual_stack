@@ -24,13 +24,13 @@ module "vNet" {
   source = "../virtual_network"
 
   vnet_name           = "${var.vnet_name}${module.resource_naming.prefix}"
-  resource_group_name = var.resource_group_name  
+  resource_group_name = var.resource_group_name
 
-  subscription_id = var.subscription_id
-  location        = var.location
+  subscription_id     = var.subscription_id
+  location            = var.location
 
-  address_space     = ["10.0.0.0/16"]
-  address_prefixes  = ["10.0.1.0/24"]
+  address_space     = var.address_space
+  address_prefixes  = var.address_prefixes
 
   # Delegación para permitir la conexión de la subred
   service_delegations = [ 
